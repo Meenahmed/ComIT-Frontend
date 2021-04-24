@@ -1,0 +1,111 @@
+<div class="container" id="main-container">
+  <p>
+    <a routerLink="/admin/products/new" class="btn btn-primary btn-add"
+      >New Product</a
+    >
+  </p>
+  <p>
+    <input
+      #query
+      (keyup)="onSearch(query.value)"
+      type="text"
+      class="form-control"
+      placeholder="Search...."
+    />
+  </p>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="main-box no-header clearfix">
+        <div class="main-box-body clearfix">
+          <div class="table-responsive">
+            <table class="table user-list">
+              <thead>
+                <tr>
+                  <th><span>Products</span></th>
+                  <th><span>Brand</span></th>
+                  <th><span>Category</span></th>
+                  <th><span>Price</span></th>
+                  <th><span>Count In Stock</span></th>
+
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let p of filteredProducts">
+                  <td>
+                    <img
+                      src="http://localhost:8080/productmanagement/api/v1/{{
+                        p?.id
+                      }}/image/download"
+                      alt=""
+                    />
+                    <h4>{{ p?.name }}</h4>
+                  </td>
+                  <td>{{ p?.brand }}</td>
+                  <td>{{ p?.category.name }}</td>
+                  <td>
+                    {{ p?.price | currency: "CAD" }}
+                  </td>
+                  <td>
+                    {{ p?.countInStock }}
+                  </td>
+                  <td style="width: 20%">
+                    <a
+                      [routerLink]="['/admin/products/', p.id]"
+                      class="table-link text-info"
+                    >
+                      <span class="fa-stack">
+                        <i class="fa fa-square fa-stack-2x icon-edit"></i>
+                        <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </a>
+                    <a (click)="deleteProduct(p.id)" class="table-link danger">
+                      <span class="fa-stack">
+                        <i class="fa fa-square fa-stack-2x icon-delete"></i>
+                        <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <p>
+  <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
+</p>
+<p>
+  <input
+    #query
+    (keyup)="onSearch(query.value)"
+    type="text"
+    class="form-control"
+    placeholder="Search...."
+  />
+</p>
+<div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Title</th>
+        <th scope="col">Price</th>
+        <th scope="col">Category</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of filteredProducts">
+        <td>{{ p.name }}</td>
+        <td>{{ p.brand }}</td>
+        <td>{{ p.price }}</td>
+        <td>{{ p.category.name }}</td>
+        <td><a [routerLink]="['/admin/products/', p.id]">Edit</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
